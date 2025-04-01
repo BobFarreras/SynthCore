@@ -11,37 +11,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.deixebledenkaito.synthcore.ui.SynthCoreApp
 import com.deixebledenkaito.synthcore.ui.theme.SynthCoreTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint  // Necessari per a Hilt
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            SynthCoreTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            SynthCoreApp()  // Aquesta és la teva arrel de Compose
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    SynthCoreTheme {
-        Greeting("Android")
-    }
+fun PreviewSynthCoreApp() {
+    SynthCoreApp()  // Previsualització per al mode disseny
 }

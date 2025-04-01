@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "228794896162",
+    "project_id": "synthcore-54d98",
+    "storage_bucket": "synthcore-54d98.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228794896162:android:a69211a39a7705712b1f7b",
+        "android_client_info": {
+          "package_name": "com.deixebledenkaito.synthcore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3VEWipOmMiDMSHWTj7M4B3TeWK21l59U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
