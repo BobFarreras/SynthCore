@@ -1,6 +1,6 @@
 package com.deixebledenkaito.synthcore.ui.screen.empresa
 
-import androidx.compose.foundation.content.MediaType.Companion.Text
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +13,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.deixebledenkaito.synthcore.ui.viewmodel.EmpresaViewModel

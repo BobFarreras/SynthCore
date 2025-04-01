@@ -67,17 +67,17 @@ dependencies {
 
 
     // Jetpack Compose
-    implementation ("androidx.activity:activity-compose:1.7.2")
-    implementation ("androidx.compose.ui:ui:1.5.0")
-    implementation ("androidx.compose.material:material:1.5.0")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation (libs.androidx.activity.compose)
+    implementation (libs.ui)
+    implementation (libs.androidx.material)
+    implementation (libs.androidx.lifecycle.viewmodel.compose)
 
 
 //    FIREBASE
     // Firebase BOM (Bill of Materials)
-    implementation (platform("com.google.firebase:firebase-bom:32.3.1"))
-    implementation ("com.google.firebase:firebase-firestore-ktx")  // Firestore
-    implementation ("com.google.firebase:firebase-auth-ktx")       //
+    implementation (libs.firebase.bom)
+    implementation (libs.firebase.firestore.ktx)  // Firestore
+    implementation (libs.firebase.auth.ktx)       //
 
     // Hilt (DI)
     implementation (libs.hilt.android)
