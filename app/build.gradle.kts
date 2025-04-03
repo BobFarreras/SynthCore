@@ -65,8 +65,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     //MATERIAL 3
-    implementation ("androidx.compose.material:material-icons-core:1.5.4")
-    implementation ("androidx.compose.material:material-icons-extended:1.5.4")
+    implementation (libs.androidx.material.icons.core)
+    implementation (libs.androidx.material.icons.extended)
     // Jetpack Compose
     implementation (libs.androidx.activity.compose)
     implementation (libs.ui)

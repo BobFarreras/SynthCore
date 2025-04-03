@@ -64,7 +64,7 @@ class AuthRepositoryImpl @Inject constructor(
 
             // 2. Crear empresa a Firestore
             val empresaCompleta = empresaData.copy(id = userId, email = email)
-            val empresaId = empresaRepository.registraEmpresa(empresaCompleta).getOrThrow()
+
 
             Log.d(TAG, "Registre exitós. ID: $userId, Codi: ${empresaCompleta.codiInvitacio}")
             Result.success(Pair(userId, empresaCompleta.codiInvitacio))
