@@ -148,6 +148,15 @@ class EmpresaAuthViewModel @Inject constructor(
     }
 }
 
+// Estats
+data class EmpresaLoginState(
+    val email: String = "",
+    val password: String = "",
+    val isLoading: Boolean = false,
+    val isLoginSuccess: Boolean = false,
+    val error: String? = null
+)
+
 data class EmpresaRegisterState(
     val nom: String = "",
     val email: String = "",

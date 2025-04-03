@@ -15,13 +15,11 @@ import javax.inject.Inject
 
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import javax.inject.Singleton
 import kotlin.Result
 
 
 
 // data/repository/AuthRepositoryImpl.kt
-@Singleton
 class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val empresaRepository: EmpresaRepository
@@ -64,7 +62,7 @@ class AuthRepositoryImpl @Inject constructor(
 
             // 2. Crear empresa a Firestore
             val empresaCompleta = empresaData.copy(id = userId, email = email)
-
+            val empresaId = empresaRepository.registraEmpresa(empresaCompleta).getOrThrow()
 
             Log.d(TAG, "Registre exitós. ID: $userId, Codi: ${empresaCompleta.codiInvitacio}")
             Result.success(Pair(userId, empresaCompleta.codiInvitacio))
