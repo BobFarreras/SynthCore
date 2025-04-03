@@ -26,7 +26,7 @@ class EmpresaAuthViewModel @Inject constructor(
     private val TAG = "EmpresaAuthViewModel"
 
     // State per login
-    private val _loginState = MutableStateFlow(EmpresaLoginState())
+    val _loginState = MutableStateFlow(EmpresaLoginState())
     val loginState: StateFlow<EmpresaLoginState> = _loginState.asStateFlow()
 
     // State per registre

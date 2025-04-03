@@ -1,13 +1,26 @@
 package com.deixebledenkaito.synthcore.ui
 
 import android.annotation.SuppressLint
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+//noinspection UsingMaterialAndMaterial3Libraries
+import androidx.compose.material.CircularProgressIndicator
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -18,24 +31,50 @@ import com.deixebledenkaito.synthcore.ui.screen.empresa.registre.EmpresaRegister
 import com.deixebledenkaito.synthcore.ui.screen.treballador.RegistreTreballadorScreen
 import com.deixebledenkaito.synthcore.ui.viewmodel.EmpresaAuthViewModel
 
+import kotlinx.coroutines.flow.update
 
 
 // ui/SynthCoreApp.kt
 @SuppressLint("StateFlowValueCalledInComposition")
-
 @Composable
 fun SynthCoreApp() {
     val navController = rememberNavController()
     val authViewModel: EmpresaAuthViewModel = hiltViewModel()
 
-    // Observem l'estat d'autenticació
-    LaunchedEffect(authViewModel.loginState.value.isLoginSuccess) {
-        if (authViewModel.loginState.value.isLoginSuccess) {
-            // Si l'usuari està loguejat, anem directament a la pantalla d'empresa
+    // Estats d'autenticació
+    val authState by authViewModel.loginState.collectAsState()
+    val isCheckingAuth = remember { mutableStateOf(true) }
+    var showSplash by remember { mutableStateOf(true) }
+
+// Efecte per verificar l'autenticació inicial
+    LaunchedEffect(Unit) {
+        if (authViewModel.authRepository.isUserLogged()) {
+            authViewModel._loginState.update { it.copy(isLoginSuccess = true) }
+        }
+        isCheckingAuth.value = false
+        showSplash = false
+    }
+
+    // Mostrem l'spinner mentre es verifica l'autenticació o durant l'splash
+    if (showSplash || isCheckingAuth.value) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(48.dp),
+                color = Color.Black,
+                strokeWidth = 4.dp
+            )
+        }
+        return
+    }
+
+    // Navegació normal un cop verificat l'estat
+    LaunchedEffect(authState.isLoginSuccess) {
+        if (authState.isLoginSuccess) {
             val currentUser = authViewModel.authRepository.getCurrentUserId()
             if (currentUser != null) {
-                // Aquí hauríem de recuperar el codi d'invitació de la base de dades
-                // Per simplificar, ho deixem buit
                 navController.navigate("iniciEmpresa/$currentUser/CODIGO_INVITACION") {
                     popUpTo("home") { inclusive = true }
                 }
@@ -43,6 +82,7 @@ fun SynthCoreApp() {
         }
     }
 
+    // Resta del codi NavHost...
     NavHost(
         navController = navController,
         startDestination = "home"
@@ -79,7 +119,8 @@ fun SynthCoreApp() {
                 invitationCode = invitationCode,
                 onLogout = {
                     navController.navigate("home") {
-                        popUpTo("home") { inclusive = true }
+                        // Netegem tot l'stack de navegació
+                        popUpTo(0)
                     }
                 }
             )
