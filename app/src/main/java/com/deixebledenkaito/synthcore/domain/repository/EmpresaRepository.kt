@@ -1,6 +1,6 @@
 package com.deixebledenkaito.synthcore.domain.repository
 
-import com.deixebledenkaito.synthcore.data.model.Empresa
+import com.deixebledenkaito.synthcore.domain.model.Empresa
 
 // domain/repository/EmpresaRepository.kt
 interface EmpresaRepository {

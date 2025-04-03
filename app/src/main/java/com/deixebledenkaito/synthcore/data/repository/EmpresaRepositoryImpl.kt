@@ -1,10 +1,12 @@
 package com.deixebledenkaito.synthcore.data.repository
 
-import com.deixebledenkaito.synthcore.data.model.Empresa
+import com.deixebledenkaito.synthcore.domain.model.Empresa
 import com.deixebledenkaito.synthcore.domain.repository.EmpresaRepository
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 import kotlinx.coroutines.tasks.await
+
 import javax.inject.Inject
 
 // data/repository/EmpresaRepositoryImpl.kt
@@ -15,7 +17,17 @@ class EmpresaRepositoryImpl @Inject constructor(
 
     override suspend fun registraEmpresa(empresa: Empresa): Result<String> {
         return try {
-            val docRef = firestore.collection("empreses").add(empresa).await()
+            val empresaData = hashMapOf(
+                "id" to empresa.id,
+                "nom" to empresa.nom,
+                "email" to empresa.email,
+                "direccio" to empresa.direccio,
+                "cif" to empresa.cif,
+                "codiInvitacio" to empresa.codiInvitacio,
+                "dataRegistre" to FieldValue.serverTimestamp()
+            )
+
+            val docRef = firestore.collection("empreses").add(empresaData).await()
             Result.success(docRef.id)
         } catch (e: Exception) {
             Result.failure(e)

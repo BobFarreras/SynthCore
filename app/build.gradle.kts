@@ -64,8 +64,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-
+    //MATERIAL 3
+    implementation ("androidx.compose.material:material-icons-core:1.5.4")
+    implementation ("androidx.compose.material:material-icons-extended:1.5.4")
     // Jetpack Compose
     implementation (libs.androidx.activity.compose)
     implementation (libs.ui)
@@ -75,7 +76,7 @@ dependencies {
 
 //    FIREBASE
     // Firebase BOM (Bill of Materials)
-    implementation (libs.firebase.bom)
+    implementation (platform(libs.firebase.bom))
     implementation (libs.firebase.firestore.ktx)  // Firestore
     implementation (libs.firebase.auth.ktx)       //
 

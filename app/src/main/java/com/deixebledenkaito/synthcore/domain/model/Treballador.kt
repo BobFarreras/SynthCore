@@ -1,4 +1,4 @@
-package com.deixebledenkaito.synthcore.data.model
+package com.deixebledenkaito.synthcore.domain.model
 
 // data/model/Treballador.kt
 data class Treballador(

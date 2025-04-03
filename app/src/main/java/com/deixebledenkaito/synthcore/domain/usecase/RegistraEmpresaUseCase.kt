@@ -1,6 +1,6 @@
 package com.deixebledenkaito.synthcore.domain.usecase
 
-import com.deixebledenkaito.synthcore.data.model.Empresa
+import com.deixebledenkaito.synthcore.domain.model.Empresa
 import com.deixebledenkaito.synthcore.domain.repository.EmpresaRepository
 import javax.inject.Inject
 
