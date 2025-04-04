@@ -27,9 +27,10 @@ import androidx.navigation.compose.rememberNavController
 import com.deixebledenkaito.synthcore.ui.screen.empresa.IniciEmpresaScreen
 import com.deixebledenkaito.synthcore.ui.screen.empresa.login.EmpresaLoginScreen
 import com.deixebledenkaito.synthcore.ui.screen.empresa.registre.EmpresaRegisterScreen
+import com.deixebledenkaito.synthcore.ui.screen.empresa.registre.EmpresaRegisterViewModel
 
 import com.deixebledenkaito.synthcore.ui.screen.treballador.RegistreTreballadorScreen
-import com.deixebledenkaito.synthcore.ui.viewmodel.EmpresaAuthViewModel
+
 
 import kotlinx.coroutines.flow.update
 
@@ -39,31 +40,32 @@ import kotlinx.coroutines.flow.update
 @Composable
 fun SynthCoreApp() {
     val navController = rememberNavController()
-    val authViewModel: EmpresaAuthViewModel = hiltViewModel()
+    val authViewModel: EmpresaRegisterViewModel = hiltViewModel()
 
     // Estats d'autenticació
     val authState by authViewModel.loginState.collectAsState()
     val isCheckingAuth = remember { mutableStateOf(true) }
-    var showSplash by remember { mutableStateOf(true) }
+    val startDestination = remember { mutableStateOf("home") }
 
-// Efecte per verificar l'autenticació inicial
     LaunchedEffect(Unit) {
-        if (authViewModel.authRepository.isUserLogged()) {
+        val isLogged = authViewModel.authRepository.isUserLogged()
+        if (isLogged) {
             authViewModel._loginState.update { it.copy(isLoginSuccess = true) }
+            startDestination.value = "iniciEmpresa/${authViewModel.authRepository.getCurrentUserId()}/CODIGO_INVITACION"
         }
         isCheckingAuth.value = false
-        showSplash = false
     }
 
-    // Mostrem l'spinner mentre es verifica l'autenticació o durant l'splash
-    if (showSplash || isCheckingAuth.value) {
+    if (isCheckingAuth.value) {
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
+
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(
                 modifier = Modifier.size(48.dp),
-                color = Color.Black,
+                color = Color.White,
                 strokeWidth = 4.dp
             )
         }
@@ -85,7 +87,7 @@ fun SynthCoreApp() {
     // Resta del codi NavHost...
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination  = startDestination.value
     ) {
         composable("home") {
             HomeScreen(
@@ -119,8 +121,8 @@ fun SynthCoreApp() {
                 invitationCode = invitationCode,
                 onLogout = {
                     navController.navigate("home") {
-                        // Netegem tot l'stack de navegació
-                        popUpTo(0)
+                        popUpTo(0) // Això neteja tot l'stack de navegació
+                        launchSingleTop = true
                     }
                 }
             )

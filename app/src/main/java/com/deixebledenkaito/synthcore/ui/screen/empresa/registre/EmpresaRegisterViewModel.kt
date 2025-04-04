@@ -1,4 +1,4 @@
-package com.deixebledenkaito.synthcore.ui.viewmodel
+package com.deixebledenkaito.synthcore.ui.screen.empresa.registre
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-// ui/viewmodel/EmpresaAuthViewModel.kt
+// ui/viewmodel/EmpresaRegisterViewModel.kt
 @HiltViewModel
-class EmpresaAuthViewModel @Inject constructor(
+class EmpresaRegisterViewModel @Inject constructor(
     private val loginUseCase: EmpresaLoginUseCase,
     private val registerUseCase: EmpresaRegisterUseCase,
     private val logoutUseCase: LogoutUseCase,
@@ -134,18 +134,7 @@ class EmpresaAuthViewModel @Inject constructor(
         )
     }
 
-    suspend fun logout() {
-        try {
-            Log.d(TAG, "Tancant sessió")
-            logoutUseCase()
-            // Reset states
-            _loginState.update { EmpresaLoginState() }
-            _registerState.update { EmpresaRegisterState() }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error en logout: ${e.message}", e)
-            throw e
-        }
-    }
+
 }
 
 // Estats

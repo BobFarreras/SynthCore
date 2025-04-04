@@ -14,7 +14,6 @@ class EmpresaRepositoryImpl @Inject constructor(
     private val firestore: FirebaseFirestore
 ) : EmpresaRepository {
 
-
     override suspend fun registraEmpresa(empresa: Empresa): Result<String> {
         return try {
             val empresaData = hashMapOf(
@@ -27,8 +26,9 @@ class EmpresaRepositoryImpl @Inject constructor(
                 "dataRegistre" to FieldValue.serverTimestamp()
             )
 
-            val docRef = firestore.collection("empreses").add(empresaData).await()
-            Result.success(docRef.id)
+            // Utilitzem l'ID de l'empresa com a ID del document
+            firestore.collection("empreses").document(empresa.id).set(empresaData).await()
+            Result.success(empresa.id)
         } catch (e: Exception) {
             Result.failure(e)
         }

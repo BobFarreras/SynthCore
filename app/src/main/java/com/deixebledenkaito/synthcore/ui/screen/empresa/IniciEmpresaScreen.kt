@@ -1,6 +1,5 @@
 package com.deixebledenkaito.synthcore.ui.screen.empresa
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.deixebledenkaito.synthcore.ui.viewmodel.EmpresaAuthViewModel
+
 import kotlinx.coroutines.launch
 
 // ui/screen/empresa/home/IniciEmpresaScreen.kt
@@ -36,7 +35,7 @@ import kotlinx.coroutines.launch
 fun IniciEmpresaScreen(
     empresaId: String,
     invitationCode: String,
-    viewModel: EmpresaAuthViewModel = hiltViewModel(),
+    iniciEmpresaViewModel: IniciEmpresaViewModel = hiltViewModel(),
     onLogout: () -> Unit
 ) {
 
@@ -53,7 +52,7 @@ fun IniciEmpresaScreen(
                     IconButton(
                         onClick = {
                             coroutineScope.launch {
-                                viewModel.logout()
+                                iniciEmpresaViewModel.logout()
                                 onLogout()
                             }
                         }

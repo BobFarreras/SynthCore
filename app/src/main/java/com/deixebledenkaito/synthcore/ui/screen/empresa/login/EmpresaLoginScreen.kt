@@ -28,14 +28,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.deixebledenkaito.synthcore.ui.viewmodel.EmpresaAuthViewModel
+
+import com.deixebledenkaito.synthcore.ui.screen.empresa.registre.EmpresaRegisterViewModel
 import kotlinx.coroutines.launch
 
 
 // ui/screen/empresa/login/EmpresaLoginScreen.kt
 @Composable
 fun EmpresaLoginScreen(
-    viewModel: EmpresaAuthViewModel = hiltViewModel(),
+    viewModel: EmpresaRegisterViewModel = hiltViewModel(),
     onLoginSuccess: () -> Unit,
     onNavigateToRegister: () -> Unit
 ) {
